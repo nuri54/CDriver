@@ -1,4 +1,3 @@
-#include "stdlib.h"
 #include "string.h"
 #include "stdio.h"
 
@@ -22,13 +21,17 @@ unsigned char command = IDLE;
 unsigned char data[20];
 unsigned  char internerspeicher[KIB];
 
+static int  indexInternetSpeicher = 0;
+
 void cmdWrite(){
     //Copy data to internalMemory and delete data
-    strcat(&internerspeicher,&data);
+    //strcat(&internerspeicher,&data);
+    memcpy(&internerspeicher + indexInternetSpeicher ,&data, strlen(data));
+    indexInternetSpeicher += strlen(data) + 1 ;
     memset(&data[0],0, sizeof(data));
 }
 void cmdRead(){
-    printf("%s", internerspeicher);
+    printf("%s\n", internerspeicher);
 
 }
 void cmdDelete(){
@@ -41,15 +44,14 @@ void test(){
         data[1] = 'e';
         data[2] = 'i';
         data[3] = 'n';
+        data[4] = 'a';
         cmdWrite();
-    //printf("%s", internerspeicher);
+        cmdRead();
        data[0] = 't';
        data[1] = 'e';
        data[2] = 's';
        data[3] = 't';
         cmdWrite();
-        cmdRead();
-        cmdDelete();
         cmdRead();
 }
 
