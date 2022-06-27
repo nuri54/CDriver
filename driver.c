@@ -18,7 +18,7 @@ unsigned char status = READY;
 unsigned char command = IDLE;
 
 unsigned char data[20];
-unsigned  char internerspeicher[20];
+unsigned  char internerspeicher[KIB];
 
 void loop(){
 
